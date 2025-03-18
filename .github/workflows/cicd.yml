@@ -1,6 +1,9 @@
 name: CI/CD for Azure Web App
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 permissions:
     id-token: write
@@ -13,7 +16,9 @@ env:
   DOTNET_VERSION: '9.0.x'                       # set this to the dot net version to use
 
 jobs:
-  build:
+  cicd:
+    name: Build and Deploy to Azure Web App
+    
     runs-on: ubuntu-latest
 
     steps:
