@@ -31,7 +31,7 @@ jobs:
         run: |
           dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
           dotnet build --configuration Release ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
-          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/publish' ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
+          dotnet publish -c Release --property:PublishDir='bin/publish' ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
       
       - name: Azure Login
         uses: azure/login@v2
@@ -45,7 +45,7 @@ jobs:
         uses: azure/webapps-deploy@v3
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/publish'
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/webapp01/bin/publish'
       
       - name: logout
         run: |
