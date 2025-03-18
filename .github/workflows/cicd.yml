@@ -8,6 +8,7 @@ permissions:
 
 env:
   AZURE_WEBAPP_NAME: app-gh-aspnet-webapp-01    # set this to your application's name
+  SRC_PROJECT_PATH: '/webapp01/webapp01.csproj' 
   AZURE_WEBAPP_PACKAGE_PATH: './src'            # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '9.0.x'                       # set this to the dot net version to use
 
@@ -28,9 +29,9 @@ jobs:
       # Run dotnet build and publish
       - name: dotnet build and publish
         run: |
-          dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/webapp01.csproj
-          dotnet build --configuration Release ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/webapp01.csproj
-          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/publish' ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/webapp01.csproj
+          dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}{{ env.SRC_PROJECT_PATH }}
+          dotnet build --configuration Release ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}{{ env.SRC_PROJECT_PATH }}
+          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/publish' ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}{{ env.SRC_PROJECT_PATH }}
       
       - name: Azure Login
         uses: azure/login@v2
