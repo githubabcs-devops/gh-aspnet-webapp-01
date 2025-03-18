@@ -10,6 +10,12 @@ public class IndexModel : PageModel
     public IndexModel(ILogger<IndexModel> logger)
     {
         _logger = logger;
+
+       	string drive = Request.Query.ContainsKey("drive") ? Request.Query["drive"] : "C";
+	    
+        var str = $"/C fsutil volume diskfree {drive}:";
+
+        _logger.LogInformation($"Command: {str}");
     }
 
     public void OnGet()
