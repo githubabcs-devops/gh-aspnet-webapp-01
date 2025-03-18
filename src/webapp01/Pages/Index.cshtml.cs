@@ -15,7 +15,7 @@ public class IndexModel : PageModel
 	    
         var str = $"/C fsutil volume diskfree {drive}:";
 
-        _logger.LogInformation($"Command: {str}");
+        _logger.LogInformation($"Command str: {str}");
     }
 
     public void OnGet()
