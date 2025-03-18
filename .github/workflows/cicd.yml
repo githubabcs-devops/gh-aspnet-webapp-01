@@ -29,9 +29,9 @@ jobs:
       # Run dotnet build and publish
       - name: dotnet build and publish
         run: |
-          dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}{{ env.SRC_PROJECT_PATH }}
-          dotnet build --configuration Release ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}{{ env.SRC_PROJECT_PATH }}
-          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/publish' ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}{{ env.SRC_PROJECT_PATH }}
+          dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
+          dotnet build --configuration Release ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
+          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/publish' ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
       
       - name: Azure Login
         uses: azure/login@v2
