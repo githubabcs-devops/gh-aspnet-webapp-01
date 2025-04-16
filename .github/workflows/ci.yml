@@ -26,7 +26,7 @@ jobs:
       
       # Setup .NET Core SDK
       - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }} 
       
