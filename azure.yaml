@@ -1,0 +1,5 @@
+name: webapp01
+metadata:
+  template: webapp01
+  description: Deployment configuration for webapp01      
+      
