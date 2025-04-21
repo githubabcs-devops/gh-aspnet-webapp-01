@@ -1,0 +1,28 @@
+# Source repository: https://github.com/actions/dependency-review-action
+# Public documentation: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-dependency-review#dependency-review-enforcement
+
+name: 'SCA - Dependency Review'
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  # Write permissions for pull-requests are required for using the `comment-summary-in-pr` option, comment out if you aren't using this option
+  pull-requests: write
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout repository'
+        uses: actions/checkout@v4
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v4
+        # Commonly enabled options, see https://github.com/actions/dependency-review-action#configuration-options for all available options.
+        with:
+          comment-summary-in-pr: always
+          fail-on-severity: 'moderate'
+          allow-licenses: MIT, Apache-2.0
+        
