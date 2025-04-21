@@ -6,6 +6,7 @@ on:
       - main
 
 permissions:
+    attestations: write
     id-token: write
     contents: read
 
@@ -69,7 +70,8 @@ jobs:
       - name: logout
         run: |
           az logout
-    
+ 
+  # https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-and-reusable-workflows-to-achieve-slsa-v1-build-level-3          
   container-build-publish:
     name: Build and Publish Container Image
     needs: []
