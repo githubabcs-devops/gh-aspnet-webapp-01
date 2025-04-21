@@ -1,7 +1,7 @@
 # https://github.com/anchore/syft
 # https://github.com/anchore/sbom-action
 
-name: CSA - Anchore Syft SBOM Scan
+name: SCA - Anchore Syft SBOM Scan
 
 on:
   push:
@@ -35,10 +35,10 @@ jobs:
         uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
         with:
           image: "${{ env.imageName }}:${{ env.tag }}"
-          artifact-name: image.spdx.json
+          artifact-name: sbom.spdx
           dependency-snapshot: true
       
       - name: SBOM upload 
         uses: advanced-security/spdx-dependency-submission-action@v0.1.1
         with:
-          filePath: "image.spdx.json"
+          filePath: "sbom.spdx"

@@ -39,6 +39,7 @@ jobs:
           if ! curl -s --head --request GET ${{ env.ZAP_TARGET }} | grep "200 OK" > /dev/null; then
             echo "Application is not running. Building and starting the application..."
             docker build ./src/webapp01 --file ./src/webapp01/Dockerfile -t ${{ env.imageName }}:${{ env.tag }}
+            echo "Starting the application..."
             docker run -d --rm -p ${{ env.HOST_PORT }}:${{ env.CONTAINER_PORT }} ${{ env.imageName }}:${{ env.tag }}
           else
             echo "Application is already running."
