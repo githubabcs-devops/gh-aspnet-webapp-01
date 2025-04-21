@@ -15,17 +15,17 @@ env:
   fail-build: false # Set to true to fail the build if vulnerabilities are found
   imageName: "webapp01"
   tag: ${{ github.sha }}
+
+permissions:
+  contents: read # for actions/checkout to fetch code
+  security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+  actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
   
 jobs:
   anchore-grype-scan:
     name: Anchore Grype Vulnerability Scan
 
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read # for actions/checkout to fetch code
-      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
 
     steps:
       - name: Checkout code
@@ -34,6 +34,8 @@ jobs:
       - name: Build an image from Dockerfile
         uses: docker/build-push-action@v4
         with:
+          context: ./src/webapp01
+          file: ./src/webapp01/Dockerfile
           tags: "${{ env.imageName }}:${{ env.tag }}"
           push: false
           load: true
