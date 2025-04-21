@@ -61,7 +61,9 @@ jobs:
           docker build ./src/webapp01 --file ./src/webapp01/Dockerfile -t crdevsecopscldev.azurecr.io/webapp01:${{ github.sha }}
           docker push crdevsecopscldev.azurecr.io/webapp01:${{ github.sha }}     
     
-      - uses: azure/webapps-deploy@v2
+      - name: Disabled Azure Web Apps Deploy
+        if: false  # This disables the action
+        uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           images: 'crdevsecopscldev.azurecr.io/webapp01:${{ github.sha }}'

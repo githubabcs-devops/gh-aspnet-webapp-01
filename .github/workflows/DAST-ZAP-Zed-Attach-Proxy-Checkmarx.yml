@@ -13,8 +13,8 @@ on:
     - cron: 0 1 * * 0
 
 env:
-  ZAP_TARGET: "http://127.0.0.1:8080/" # Change this to your target URL
-  buildAndStart: "true" # Change to "true" to build and start the application if not running
+  ZAP_TARGET: "https://app-juice-shop.azurewebsites.net" # Change this to your target URL
+  buildAndStart: "false" # Change to "true" to build and start the application if not running
   imageName: "webapp01"
   tag: ${{ github.sha }}
   HOST_PORT: "8080"
