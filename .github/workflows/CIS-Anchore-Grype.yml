@@ -18,6 +18,7 @@ env:
 
 permissions:
   contents: read # for actions/checkout to fetch code
+  id-token: write
   security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
   actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
   
@@ -52,3 +53,9 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
+      
+      - name: Upload alerts file as a workflow artifact
+        uses: actions/upload-artifact@v4
+        with:  
+          name: alerts
+          path: ${{ steps.scan.outputs.sarif }}

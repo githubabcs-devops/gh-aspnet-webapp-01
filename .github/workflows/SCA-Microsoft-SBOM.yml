@@ -2,8 +2,9 @@
 
 name: SCA - Microsoft SBOM Tool
 
-on: 
-  workflow_dispatch:
+on:
+  push:
+    branches: [main]
 
 env:
   SRC_PROJECT_PATH: '/webapp01/webapp01.csproj' 
@@ -38,3 +39,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         path: buildOutput
+
+    - name: SBOM upload 
+      uses: advanced-security/spdx-dependency-submission-action@v0.1.1
+      with:
+        filePath: "_manifest/spdx_2.2/"

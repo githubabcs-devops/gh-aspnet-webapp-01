@@ -37,3 +37,8 @@ jobs:
           image: "${{ env.imageName }}:${{ env.tag }}"
           artifact-name: image.spdx.json
           dependency-snapshot: true
+      
+      - name: SBOM upload 
+        uses: advanced-security/spdx-dependency-submission-action@v0.1.1
+        with:
+          filePath: "image.spdx.json"
