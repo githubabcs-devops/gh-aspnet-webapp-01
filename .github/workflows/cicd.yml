@@ -23,7 +23,7 @@ jobs:
 
     steps:
       # Checkout the repo
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v4
       
       # Setup .NET Core SDK
       - name: Setup .NET Core
@@ -71,3 +71,10 @@ jobs:
       - name: logout
         run: |
           az logout
+
+      - uses: advanced-security/reusable-workflows/.github/workflows/container.yml@v0.2.0
+        continue-on-error: true
+        with:
+          # This is used for tagging the container image
+          version: v1.0.0
+          container-file: ./src/webapp01/Dockerfile
