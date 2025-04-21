@@ -24,7 +24,7 @@ jobs:
 
     steps:
       # Checkout the repo
-      - uses: actions/checkout@main
+      - uses: actions/checkout@v4
       
       # Setup .NET Core SDK
       - name: Setup .NET Core
