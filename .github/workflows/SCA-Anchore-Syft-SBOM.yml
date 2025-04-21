@@ -11,6 +11,10 @@ env:
   imageName: "webapp01"
   tag: ${{ github.sha }}
 
+permissions:
+  contents: read
+  id-token: write # required to upload artifacts
+
 jobs:
   anchore-syft-Scan:
     name: Anchore Syft SBOM Scan
@@ -19,7 +23,6 @@ jobs:
 
     permissions:
       contents: write # required to upload to the Dependency submission API
-      actions: read # to find workflow artifacts when attaching release assets
 
     steps:
       - name: Checkout code
@@ -29,7 +32,7 @@ jobs:
         run: docker build ./src/webapp01 --file ./src/webapp01/Dockerfile --tag ${{ env.imageName }}:${{ env.tag }}
 
       - name: Scan the image and upload dependency results
-        uses: anchore/sbom-action@v0
+        uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
         with:
           image: "${{ env.imageName }}:${{ env.tag }}"
           artifact-name: image.spdx.json
