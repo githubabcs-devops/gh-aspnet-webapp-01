@@ -20,15 +20,14 @@ env:
   HOST_PORT: "8080"
   CONTAINER_PORT: "8000"
 
+permissions:
+  contents: read 
+
 jobs:
   zap_scan:
     name: ZAP Full Scan
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      issues: write # to create issues for alerts
-
+  
     steps:
       - uses: actions/checkout@v4
       # build and start your application here
