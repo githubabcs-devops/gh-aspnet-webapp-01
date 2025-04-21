@@ -35,10 +35,7 @@ jobs:
         uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
         with:
           image: "${{ env.imageName }}:${{ env.tag }}"
-          artifact-name: sbom.spdx
           dependency-snapshot: true
       
       - name: SBOM upload 
         uses: advanced-security/spdx-dependency-submission-action@v0.1.1
-        with:
-          filePath: "sbom.spdx"
