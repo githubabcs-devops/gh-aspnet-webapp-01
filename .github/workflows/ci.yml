@@ -13,6 +13,8 @@ env:
   SRC_PROJECT_PATH: '/webapp01/webapp01.csproj' 
   AZURE_WEBAPP_PACKAGE_PATH: './src'            # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '9.0.x'                       # set this to the dot net version to use
+  imageName: "webapp01"
+  tag: ${{ github.sha }}
 
 jobs:
   ci_build:
@@ -36,4 +38,5 @@ jobs:
           dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
           dotnet build --configuration Release ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
       
-      
+      - name: Build the Docker image
+        run: docker build ./src/webapp01 --file ./src/webapp01/Dockerfile --tag ${{ env.imageName }}:${{ env.tag }}

@@ -52,6 +52,20 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/webapp01/bin/publish'
       
+      - uses: azure/docker-login@v1
+        with:
+          login-server: crdevsecopscldev.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build ./src/webapp01 --file ./src/webapp01/Dockerfile -t crdevsecopscldev.azurecr.io/webapp01:${{ github.sha }}
+          docker push crdevsecopscldev.azurecr.io/webapp01:${{ github.sha }}     
+    
+      - uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          images: 'crdevsecopscldev.azurecr.io/webapp01:${{ github.sha }}'
+          
       - name: logout
         run: |
           az logout
