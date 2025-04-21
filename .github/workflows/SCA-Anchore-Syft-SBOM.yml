@@ -33,9 +33,7 @@ jobs:
 
       - name: Scan the image and upload dependency results
         uses: anchore/sbom-action@bb716408e75840bbb01e839347cd213767269d4a
+        continue-on-error: true
         with:
           image: "${{ env.imageName }}:${{ env.tag }}"
           dependency-snapshot: true
-      
-      - name: SBOM upload 
-        uses: advanced-security/spdx-dependency-submission-action@v0.1.1
