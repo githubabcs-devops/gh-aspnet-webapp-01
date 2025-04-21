@@ -1,0 +1,36 @@
+# https://github.com/anchore/syft
+# https://github.com/anchore/sbom-action
+
+name: CSA - Anchore Syft SBOM Scan
+
+on:
+  push:
+    branches: [main]
+
+env:
+  imageName: "webapp01"
+  tag: ${{ github.sha }}
+
+jobs:
+  anchore-syft-Scan:
+    name: Anchore Syft SBOM Scan
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # required to upload to the Dependency submission API
+      actions: read # to find workflow artifacts when attaching release assets
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build the Docker image
+        run: docker build ./src/webapp01 --file ./src/webapp01/Dockerfile --tag ${{ env.imageName }}:${{ env.tag }}
+
+      - name: Scan the image and upload dependency results
+        uses: anchore/sbom-action@v0
+        with:
+          image: "${{ env.imageName }}:${{ env.tag }}"
+          artifact-name: image.spdx.json
+          dependency-snapshot: true

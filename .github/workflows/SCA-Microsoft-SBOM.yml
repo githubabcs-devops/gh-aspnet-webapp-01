@@ -1,0 +1,36 @@
+# https://github.com/microsoft/sbom-tool
+
+name: SCA - Microsoft SBOM Tool
+
+on: 
+  workflow_dispatch:
+
+env:
+  SRC_PROJECT_PATH: '/webapp01/webapp01.csproj' 
+  AZURE_WEBAPP_PACKAGE_PATH: './src'            # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '9.0.x'                       # set this to the dot net version to use
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }} 
+    - name: dotnet build
+      run: |
+        dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }}
+        dotnet build --configuration Release ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}${{ env.SRC_PROJECT_PATH }} --output buildOutput
+      
+    - name: Generate SBOM
+      run: |
+        curl -Lo $RUNNER_TEMP/sbom-tool https://github.com/microsoft/sbom-tool/releases/latest/download/sbom-tool-linux-x64
+        chmod +x $RUNNER_TEMP/sbom-tool
+        $RUNNER_TEMP/sbom-tool generate -b ./buildOutput -bc . -pn Test -pv 1.0.0 -ps MyCompany -nsb https://sbom.mycompany.com -V Verbose
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        path: buildOutput
