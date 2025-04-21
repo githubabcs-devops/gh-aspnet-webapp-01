@@ -1,0 +1,52 @@
+# https://github.com/anchore/grype
+# https://github.com/anchore/scan-action
+
+name: Anchore Grype Vulnerability Scan (Container Image Scanning)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: 0 1 * * 0
+
+env:
+  fail-build: false # Set to true to fail the build if vulnerabilities are found
+  imageName: "webapp01"
+  tag: ${{ github.sha }}
+  
+jobs:
+  anchore-grype-scan:
+    name: Anchore Grype Vulnerability Scan
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build an image from Dockerfile
+        uses: docker/build-push-action@v4
+        with:
+          tags: "${{ env.imageName }}:${{ env.tag }}"
+          push: false
+          load: true
+
+      - name: Run the Anchore Grype scan action
+        uses: anchore/scan-action@v6
+        id: scan
+        with:
+          image: "${{ env.imageName }}:${{ env.tag }}"
+          fail-build: ${{ env.fail-build }}
+          severity-cutoff: critical
+      
+      - name: Upload Anchore vulnerability report to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
