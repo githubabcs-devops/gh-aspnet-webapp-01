@@ -2,7 +2,7 @@
 # https://github.com/aquasecurity/trivy
 # https://github.com/aquasecurity/trivy-action
 
-name: Trivy Container Image Scanning
+name: CIS - Trivy Container Image Scanning
 
 on:
   push:

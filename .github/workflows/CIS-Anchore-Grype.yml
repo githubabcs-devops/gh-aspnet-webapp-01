@@ -1,7 +1,7 @@
 # https://github.com/anchore/grype
 # https://github.com/anchore/scan-action
 
-name: Anchore Grype Vulnerability Scan (Container Image Scanning)
+name: CIS - Anchore Grype Vulnerability Scan (Container Image Scanning)
 
 on:
   push:
