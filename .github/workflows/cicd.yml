@@ -6,6 +6,7 @@ on:
       - main
 
 permissions:
+    attestations: write
     id-token: write
     contents: read
 
@@ -18,9 +19,7 @@ env:
 jobs:
   cicd:
     name: Build and Deploy to Azure Web App
-    
     runs-on: ubuntu-latest
-
     steps:
       # Checkout the repo
       - uses: actions/checkout@v4
@@ -71,10 +70,13 @@ jobs:
       - name: logout
         run: |
           az logout
-
-      - uses: advanced-security/reusable-workflows/.github/workflows/container.yml@v0.2.0
-        continue-on-error: true
-        with:
-          # This is used for tagging the container image
-          version: v1.0.0
-          container-file: ./src/webapp01/Dockerfile
+ 
+  # https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-and-reusable-workflows-to-achieve-slsa-v1-build-level-3          
+  container-build-publish:
+    name: Build and Publish Container Image
+    needs: []
+    uses: advanced-security/reusable-workflows/.github/workflows/container.yml@v0.2.0
+    with:
+      # This is used for tagging the container image
+      version: v1.0.0
+      container-file: ./src/webapp01/Dockerfile
