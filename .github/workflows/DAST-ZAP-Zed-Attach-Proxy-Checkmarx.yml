@@ -1,0 +1,50 @@
+# https://www.zaproxy.org/
+# https://www.zaproxy.org/docs/
+# https://github.com/zaproxy/
+# https://www.zaproxy.org/docs/automate/
+# https://github.com/zaproxy/action-full-scan
+
+name: DAST - Zed Attack Proxy (ZAP) Full Scan
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: 0 1 * * 0
+
+env:
+  ZAP_TARGET: "http://127.0.0.1:8080/" # Change this to your target URL
+  buildAndStart: "true" # Change to "true" to build and start the application if not running
+  imageName: "webapp01"
+  tag: ${{ github.sha }}
+  HOST_PORT: "8080"
+  CONTAINER_PORT: "8000"
+
+permissions:
+  contents: read 
+
+jobs:
+  zap_scan:
+    name: ZAP Full Scan
+    runs-on: ubuntu-latest
+  
+    steps:
+      - uses: actions/checkout@v4
+      # build and start your application here
+      # conditionally run the build step
+      # assuming the application is a Docker container
+      - name: Check if application is running, if not, build and start it
+        if: env.buildAndStart == 'true'
+        run: |
+          if ! curl -s --head --request GET ${{ env.ZAP_TARGET }} | grep "200 OK" > /dev/null; then
+            echo "Application is not running. Building and starting the application..."
+            docker build ./src/webapp01 --file ./src/webapp01/Dockerfile -t ${{ env.imageName }}:${{ env.tag }}
+            docker run -d --rm -p ${{ env.HOST_PORT }}:${{ env.CONTAINER_PORT }} ${{ env.imageName }}:${{ env.tag }}
+          else
+            echo "Application is already running."
+          fi
+      - name: Run ZAP Scan
+        uses: zaproxy/action-full-scan@v0.12.0
+        id: zap
+        with:
+          target: "${{ env.ZAP_TARGET }}"
