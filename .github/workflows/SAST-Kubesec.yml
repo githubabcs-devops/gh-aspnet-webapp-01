@@ -1,0 +1,54 @@
+# https://kubesec.io/
+# https://github.com/controlplaneio/kubesec
+# https://github.com/controlplaneio/kubesec-action
+
+name: SAST Kubesec Scanner
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: '18 8 * * 6'
+
+permissions:
+  contents: read # for actions/checkout to fetch code
+  security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+  actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+
+jobs:
+  kubesec-scan:
+    name: Kubesec Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run kubesec scanner (critical-double.yaml)
+        uses: controlplaneio/kubesec-action@43d0ddff5ffee89a6bb9f29b64cd865411137b14
+        with:
+          input: manifests/critical-double.yaml # specify configuration file to scan here
+          format: template
+          template: manifests/sarif.tpl
+          output: kubesec-results.sarif
+          exit-code: "0"
+
+      - name: Upload Kubesec scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: kubesec-results.sarif
+
+      - name: Run kubesec scanner (score-5-pod-serviceaccount.yaml)
+        uses: controlplaneio/kubesec-action@43d0ddff5ffee89a6bb9f29b64cd865411137b14
+        with:
+          input: manifests/score-5-pod-serviceaccount.yaml # specify configuration file to scan here
+          format: template
+          template: manifests/sarif.tpl
+          output: kubesec-results.sarif
+          exit-code: "0"
+
+      - name: Upload Kubesec scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: kubesec-results.sarif
