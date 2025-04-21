@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "acrName": {
+      "value": "acrwebapp01dev"
+    },
+    "acrSku": {
+      "value": "Basic"
+    },
+    "appServicePlanName": {
+      "value": "aspwebapp01dev"
+    },
+    "webAppName": {
+      "value": "webapp01dev"
+    },
+    "location": {
+      "value": "canadacentral"
+    },
+    "containerImage": {
+      "value": "acrwebapp01dev.azurecr.io/webapp01:latest"
+    },
+    "resourceGroupName": {
+      "value": "rg-webapp01-dev"
+    }
+  }
+}
