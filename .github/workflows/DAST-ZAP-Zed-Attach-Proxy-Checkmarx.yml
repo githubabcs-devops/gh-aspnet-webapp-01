@@ -22,6 +22,7 @@ env:
 
 permissions:
   contents: read 
+  issues: write # to create issues for alerts
 
 jobs:
   zap_scan:
@@ -48,4 +49,5 @@ jobs:
         uses: zaproxy/action-full-scan@v0.12.0
         id: zap
         with:
+          allow_issue_writing: true
           target: "${{ env.ZAP_TARGET }}"
