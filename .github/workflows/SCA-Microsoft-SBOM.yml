@@ -12,7 +12,7 @@ env:
   DOTNET_VERSION: '9.0.x'                       # set this to the dot net version to use
 
 permissions:
-  contents: read
+  contents: write
   id-token: write # required to upload artifacts
 
 jobs:
