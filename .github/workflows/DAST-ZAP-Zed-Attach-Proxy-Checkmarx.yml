@@ -22,7 +22,7 @@ env:
 
 permissions:
   contents: read 
-  issues: write # to create issues for alerts
+  #issues: write # to create issues for alerts
 
 jobs:
   zap_scan:
@@ -49,5 +49,14 @@ jobs:
         uses: zaproxy/action-full-scan@v0.12.0
         id: zap
         with:
-          allow_issue_writing: true
+          allow_issue_writing: false
           target: "${{ env.ZAP_TARGET }}"
+      # - name: ZAP Scan
+      #   uses: zaproxy/action-baseline@v0.4.0
+      #   with:
+      #     target: "${{ env.ZAP_TARGET }}"
+      - uses: SvanBoxel/zaproxy-to-ghas@main
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
