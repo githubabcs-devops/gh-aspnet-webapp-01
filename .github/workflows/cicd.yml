@@ -83,4 +83,4 @@ jobs:
       version: v1.0.0
       container-file: ./src/webapp01/Dockerfile
       container-context: ./src/webapp01
-      container-name: webapp01
+      container-name: "${{ github.repository }}/webapp01"
