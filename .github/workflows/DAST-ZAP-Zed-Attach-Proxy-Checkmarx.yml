@@ -54,6 +54,7 @@ jobs:
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.14.0
         with:
+          allow_issue_writing: false
           target: "${{ env.ZAP_TARGET }}"
       - uses: SvanBoxel/zaproxy-to-ghas@main
       - name: Upload SARIF file
