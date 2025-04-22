@@ -6,9 +6,11 @@ on:
       - main
 
 permissions:
-    attestations: write
-    id-token: write
-    contents: read
+  attestations: write
+  id-token: write
+  contents: write
+  packages: write
+  security-events: write
 
 env:
   AZURE_WEBAPP_NAME: app-gh-aspnet-webapp-01    # set this to your application's name
