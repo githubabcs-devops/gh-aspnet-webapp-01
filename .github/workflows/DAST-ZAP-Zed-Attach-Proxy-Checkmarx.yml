@@ -56,8 +56,10 @@ jobs:
         uses: zaproxy/action-baseline@v0.14.0
         with:
           allow_issue_writing: false
-          target: "${{ env.ZAP_TARGET }}"
-          artifact_name: "zap-baseline-scan"
+          target: "${{ env.ZAP_TARGET }}"          
+      - name: Show results
+        run: |
+          ls 
       - uses: SvanBoxel/zaproxy-to-ghas@main
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
