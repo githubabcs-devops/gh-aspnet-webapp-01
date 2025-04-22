@@ -22,6 +22,7 @@ env:
 
 permissions:
   contents: read 
+  security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
   #issues: write # to create issues for alerts
 
 jobs:
