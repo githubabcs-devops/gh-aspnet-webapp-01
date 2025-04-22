@@ -52,7 +52,7 @@ jobs:
           allow_issue_writing: false
           target: "${{ env.ZAP_TARGET }}"
       - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.4.0
+        uses: zaproxy/action-baseline@v0.14.0
         with:
           target: "${{ env.ZAP_TARGET }}"
       - uses: SvanBoxel/zaproxy-to-ghas@main
