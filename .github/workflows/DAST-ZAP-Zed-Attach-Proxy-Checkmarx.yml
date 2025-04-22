@@ -51,11 +51,13 @@ jobs:
         with:
           allow_issue_writing: false
           target: "${{ env.ZAP_TARGET }}"
+          artifact_name: "zap-full-scan"
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.14.0
         with:
           allow_issue_writing: false
           target: "${{ env.ZAP_TARGET }}"
+          artifact_name: "zap-baseline-scan"
       - uses: SvanBoxel/zaproxy-to-ghas@main
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
