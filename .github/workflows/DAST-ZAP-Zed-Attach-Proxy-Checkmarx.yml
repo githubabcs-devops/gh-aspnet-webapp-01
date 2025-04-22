@@ -60,7 +60,8 @@ jobs:
       - name: Show results
         run: |
           ls 
-      - uses: SvanBoxel/zaproxy-to-ghas@main
+      - uses: githubabcs-devops/zap-to-ghas@main
+      
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
