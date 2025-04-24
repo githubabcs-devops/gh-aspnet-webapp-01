@@ -64,7 +64,7 @@ jobs:
           docker push crdevsecopscldev.azurecr.io/webapp01:${{ github.sha }}     
     
       - name: Disabled Azure Web Apps Deploy
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           images: 'crdevsecopscldev.azurecr.io/webapp01:${{ github.sha }}'
