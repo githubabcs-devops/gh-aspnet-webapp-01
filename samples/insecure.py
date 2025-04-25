@@ -1,4 +1,4 @@
-Commented out sample to pass  scanning 
+#Commented out sample to pass  scanning 
 
 import hashlib
 print("I am very insecure. Bandit thinks so too.")
