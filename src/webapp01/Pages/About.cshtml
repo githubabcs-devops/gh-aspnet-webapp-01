@@ -1,0 +1,71 @@
+@page
+@model AboutModel
+@{
+    ViewData["Title"] = "About GitHub Advanced Security";
+}
+
+<div class="container">
+    <h1>@ViewData["Title"]</h1>
+    <hr />
+    
+    <div class="row">
+        <div class="col-md-8">
+            <h2>What is GitHub Advanced Security (GHAS)?</h2>
+            <p>
+                GitHub Advanced Security (GHAS) is a suite of security features that help you identify and fix vulnerabilities in your code.
+                It provides tools to improve your security posture and protect your software development lifecycle.
+            </p>
+            
+            <h3>Key Features of GHAS:</h3>
+            <ul>
+                <li>
+                    <strong>Code Scanning:</strong> Automatically identify vulnerabilities in your code using CodeQL, the semantic code analysis engine.
+                </li>
+                <li>
+                    <strong>Secret Scanning:</strong> Detect secrets and credentials committed to your repositories.
+                </li>
+                <li>
+                    <strong>Dependency Review:</strong> Get insights about dependency changes and their security impact when reviewing pull requests.
+                </li>
+                <li>
+                    <strong>Dependabot:</strong> Receive automatic alerts and pull requests to update vulnerable dependencies.
+                </li>
+                <li>
+                    <strong>Security Overview:</strong> Get a comprehensive view of your security alerts across repositories and organizations.
+                </li>
+            </ul>
+            
+            <h3>Benefits</h3>
+            <p>
+                With GitHub Advanced Security, teams can:
+            </p>
+            <ul>
+                <li>Find security vulnerabilities before they reach production</li>
+                <li>Shift security left in the development lifecycle</li>
+                <li>Meet compliance requirements with built-in reports</li>
+                <li>Automate security checks in CI/CD pipelines</li>
+                <li>Reduce the risk of data breaches and security incidents</li>
+            </ul>
+            
+            <p>
+                Learn more about GHAS at <a href="https://github.com/features/security" target="_blank">GitHub's security features page</a>.
+            </p>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">GHAS Resources</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><a href="https://docs.github.com/en/code-security" target="_blank">GitHub Code Security Documentation</a></li>
+                        <li><a href="https://docs.github.com/en/code-security/code-scanning" target="_blank">Code Scanning Documentation</a></li>
+                        <li><a href="https://docs.github.com/en/code-security/secret-scanning" target="_blank">Secret Scanning Documentation</a></li>
+                        <li><a href="https://docs.github.com/en/code-security/dependabot" target="_blank">Dependabot Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
