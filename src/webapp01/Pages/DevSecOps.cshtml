@@ -1,0 +1,55 @@
+@page
+@model webapp01.Pages.DevSecOpsModel
+@{
+    ViewData["Title"] = "DevSecOps Demonstration";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<div>
+    <h2>GitHub Advanced Security (GHAS)</h2>
+    <p>
+        GitHub Advanced Security provides a suite of tools to help you secure your software development lifecycle directly within your GitHub workflow.
+        It helps you find and fix vulnerabilities earlier, automate security processes, and maintain compliance.
+    </p>
+    <p>Key features include:</p>
+    <ul>
+        <li><strong>Code scanning:</strong> Automatically analyzes your code for security vulnerabilities and coding errors. It supports a wide range of languages and frameworks. Results are displayed directly in pull requests.</li>
+        <li><strong>Secret scanning:</strong> Detects secrets, such as tokens and private keys, that have been accidentally committed to your repository. It can prevent fraudulent use of compromised credentials.</li>
+        <li><strong>Dependency review:</strong> Shows the full impact of changes to dependencies and displays details of any vulnerable versions before you merge a pull request.</li>
+    </ul>
+
+    <h3>Demonstrating Insecure Code Patterns</h3>
+    <p>This page's backend includes examples of insecure code patterns for educational purposes. These are things GHAS can help identify.</p>
+    
+    <h4>Log Forging Example</h4>
+    <p>Try adding <code>?userInput=test%0AINFO: Fake log entry</code> to the URL to see a log forging attempt.</p>
+    <form method="get">
+        <div class="form-group">
+            <label for="userInputLog">User Input for Log:</label>
+            <input type="text" class="form-control" id="userInputLog" name="userInput" value="test">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Test Log Forging</button>
+    </form>
+    @if (!string.IsNullOrEmpty(Model.LogForgingTestResult))
+    {
+        <div class="alert alert-info mt-2">@Model.LogForgingTestResult</div>
+    }
+
+    <h4>Regex Exposure (ReDoS) Example</h4>
+    <p>The backend has a regex pattern <code>(a+)+$</code> which is vulnerable to ReDoS. Test with inputs like "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!" (many 'a's followed by an exclamation mark).</p>
+    <form method="post">
+        <div class="form-group">
+            <label for="regexInput">Input for Regex Check:</label>
+            <input type="text" class="form-control" id="regexInput" asp-for="RegexInput">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2" asp-page-handler="CheckRegex">Test Regex</button>
+    </form>
+    @if (!string.IsNullOrEmpty(Model.RegexTestResult))
+    {
+        <div class="alert alert-info mt-2">@Model.RegexTestResult</div>
+    }
+
+</div>
