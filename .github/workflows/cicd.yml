@@ -54,7 +54,7 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/webapp01/bin/publish'
       
-      - uses: azure/docker-login@v1
+      - uses: azure/docker-login@v2
         with:
           login-server: crdevsecopscldev.azurecr.io
           username: ${{ secrets.REGISTRY_USERNAME }}
