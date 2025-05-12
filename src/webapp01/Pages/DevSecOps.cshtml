@@ -1,0 +1,19 @@
+@page
+@model webapp01.Pages.DevSecOpsModel
+@{
+    ViewData["Title"] = "DevSecOps";
+}
+
+<h2>DevSecOps & GitHub Advanced Security News</h2>
+<div>
+    <ul>
+        <li><strong>May 2025:</strong> GitHub Advanced Security now supports secret scanning for custom patterns.</li>
+        <li><strong>April 2025:</strong> Code scanning with CodeQL adds new C# queries for insecure deserialization.</li>
+        <li><strong>March 2025:</strong> Push protection for credentials is now enabled by default for all repos.</li>
+    </ul>
+</div>
+<p>Below is a demonstration of insecure C# code for educational purposes only.</p>
+<pre>
+@Model.InsecureLogExample
+@Model.InsecureRegexExample
+</pre>
