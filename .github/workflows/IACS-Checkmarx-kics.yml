@@ -31,7 +31,7 @@ jobs:
         run: mkdir -p results-dir
 
       - name: Run kics Scan
-        uses: checkmarx/kics-github-action@v2.1.7
+        uses: checkmarx/kics-github-action@v2.1.9
         with:
             path: 'terraform'
             # when provided with a directory on output_path
