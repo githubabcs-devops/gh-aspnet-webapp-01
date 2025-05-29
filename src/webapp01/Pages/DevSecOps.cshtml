@@ -1,0 +1,169 @@
+@page
+@model DevSecOpsModel
+@{
+    ViewData["Title"] = "DevSecOps & GitHub Advanced Security";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="display-4 text-primary">@ViewData["Title"]</h1>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-newspaper"></i> Latest GHAS News & Updates</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">Stay up-to-date with the latest GitHub Advanced Security features and enhancements:</p>
+                    
+                    @if (Model.LatestNews.Any())
+                    {
+                        <ul class="list-group list-group-flush">
+                            @foreach (var newsItem in Model.LatestNews)
+                            {
+                                <li class="list-group-item">
+                                    <i class="bi bi-check-circle text-success me-2"></i>
+                                    @newsItem
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0"><i class="bi bi-shield-check"></i> DevSecOps Best Practices</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Security in Development</h5>
+                            <ul>
+                                <li>Shift-left security testing</li>
+                                <li>Automated code scanning</li>
+                                <li>Secret detection & management</li>
+                                <li>Dependency vulnerability scanning</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>GHAS Integration</h5>
+                            <ul>
+                                <li>CodeQL static analysis</li>
+                                <li>Dependabot alerts & updates</li>
+                                <li>Security advisories</li>
+                                <li>Supply chain protection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Demo Security Testing</h5>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">This form demonstrates security vulnerabilities for educational purposes:</p>
+                    
+                    <form method="post">
+                        <div class="mb-3">
+                            <label for="userInput" class="form-label">Test Input:</label>
+                            <input type="text" class="form-control" id="userInput" name="userInput" 
+                                   value="@Model.UserInput" placeholder="Enter test data...">
+                            <small class="form-text text-muted">
+                                ⚠️ This input is intentionally vulnerable for demo purposes
+                            </small>
+                        </div>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-bug"></i> Test Vulnerabilities
+                        </button>
+                    </form>
+                    
+                    @if (!string.IsNullOrEmpty(Model.UserInput))
+                    {
+                        <div class="mt-3 alert alert-info">
+                            <strong>Input processed:</strong> @Model.UserInput
+                            <br>
+                            <small>Check application logs for security demonstrations</small>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="bi bi-link-45deg"></i> GHAS Resources</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="https://docs.github.com/en/code-security" target="_blank" class="btn btn-outline-primary btn-sm">
+                            Code Security Docs
+                        </a>
+                        <a href="https://docs.github.com/en/code-security/code-scanning" target="_blank" class="btn btn-outline-primary btn-sm">
+                            Code Scanning Guide
+                        </a>
+                        <a href="https://docs.github.com/en/code-security/secret-scanning" target="_blank" class="btn btn-outline-primary btn-sm">
+                            Secret Scanning
+                        </a>
+                        <a href="https://docs.github.com/en/code-security/dependabot" target="_blank" class="btn btn-outline-primary btn-sm">
+                            Dependabot
+                        </a>
+                        <a href="https://docs.github.com/en/code-security/security-advisories" target="_blank" class="btn btn-outline-primary btn-sm">
+                            Security Advisories
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <strong>Educational Demo:</strong> This page contains intentionally vulnerable code patterns for GitHub Advanced Security demonstration purposes. 
+                Never use these patterns in production environments.
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Enhance the demo experience
+        document.addEventListener('DOMContentLoaded', function() {
+            const newsItems = document.querySelectorAll('.list-group-item');
+            newsItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateX(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+}
+
+<style>
+    .list-group-item {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s ease;
+    }
+    
+    .card {
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-2px);
+    }
+</style>
