@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       # build and start your application here
       # conditionally run the build step
       # assuming the application is a Docker container
